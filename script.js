@@ -18,6 +18,9 @@ const bingoItems = [
   "Unlucky",
   "Mushroom island spotted",
   "Hunger reset",
+  ">5 TNT",
+  ">3 Diamonds",
+  "Treassure On Pie",
 ];
 
 // Generate a consistent random seed based on the current date
@@ -88,10 +91,10 @@ function init() {
   const shuffledItems = shuffleItems(itemsWithoutFreeSpace, seed);
 
   // Select 8 items since the middle one will be "Free Space"
-  const selectedItems = shuffledItems.slice(0, 8);
+  const selectedItems = shuffledItems.slice(0, 16);
 
   // Insert "Free Space" into the middle position
-  selectedItems.splice(4, 0, "Free Space"); // Position 4 is the middle in a 9-item list
+  //selectedItems.splice(4, 0, "Free Space"); // Position 4 is the middle in a 9-item list
 
   // Save today's bingo items in localStorage
   localStorage.setItem("todayBingoItems", JSON.stringify(selectedItems));

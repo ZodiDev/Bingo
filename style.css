@@ -30,7 +30,7 @@ h1 {
 
 #bingo-board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
   width: 90vw;
   max-width: 800px; /* Increased max-width to make board wider */
