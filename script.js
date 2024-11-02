@@ -20,13 +20,6 @@ const bingoItems = [
   "Hunger reset",
 ];
 
-// Remove the fetch function
-// async function fetchBingoItems() {
-//   const response = await fetch('bingo.json');
-//   const items = await response.json();
-//   return items;
-// }
-
 // Generate a consistent random seed based on the current date
 function getDailySeed() {
   const date = new Date();
@@ -48,7 +41,7 @@ function shuffleItems(items, seed) {
     const j = Math.floor(seededRandom(seed + i) * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return shuffled.slice(0, 9); // Return only 9 items
+  return shuffled;
 }
 
 // Render the bingo board
@@ -89,12 +82,21 @@ let claimedCells = JSON.parse(localStorage.getItem("claimedCells")) || [];
 
 function init() {
   const seed = getDailySeed();
-  const bingoItemsForToday = shuffleItems(bingoItems, seed);
+
+  // Exclude "Free Space" and shuffle the remaining items
+  const itemsWithoutFreeSpace = bingoItems.slice();
+  const shuffledItems = shuffleItems(itemsWithoutFreeSpace, seed);
+
+  // Select 8 items since the middle one will be "Free Space"
+  const selectedItems = shuffledItems.slice(0, 8);
+
+  // Insert "Free Space" into the middle position
+  selectedItems.splice(4, 0, "Free Space"); // Position 4 is the middle in a 9-item list
 
   // Save today's bingo items in localStorage
-  localStorage.setItem("todayBingoItems", JSON.stringify(bingoItemsForToday));
+  localStorage.setItem("todayBingoItems", JSON.stringify(selectedItems));
 
-  renderBoard(bingoItemsForToday);
+  renderBoard(selectedItems);
 }
 
 // Check if the stored bingo items are for today
@@ -103,9 +105,14 @@ function isSameDay() {
   if (!storedItems) return false;
 
   const seed = getDailySeed();
-  const items = shuffleItems(bingoItems, seed);
 
-  return JSON.stringify(storedItems) === JSON.stringify(items);
+  // Reconstruct today's bingo items
+  const itemsWithoutFreeSpace = bingoItems.slice();
+  const shuffledItems = shuffleItems(itemsWithoutFreeSpace, seed);
+  const selectedItems = shuffledItems.slice(0, 8);
+  selectedItems.splice(4, 0, "Free Space"); // Insert "Free Space" in the middle
+
+  return JSON.stringify(storedItems) === JSON.stringify(selectedItems);
 }
 
 // Clear localStorage if it's a new day
