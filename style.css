@@ -1,0 +1,42 @@
+body {
+  background: linear-gradient(to right, #e96443, #904e95);
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+#bingo-board {
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  grid-gap: 15px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.bingo-cell {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.bingo-cell:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.bingo-cell.claimed {
+  background-color: rgba(0, 128, 0, 0.6);
+  text-decoration: line-through;
+}
