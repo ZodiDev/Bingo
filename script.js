@@ -4,7 +4,7 @@ const bingoItems = [
   "Crafting The Wrong Item",
   "Mentions Skycrab",
   "Messes Up A Portal",
-  "Getting A Diamong Pic",
+  "Getting A Diamond Pic",
   "Ruined Portal Enter",
   "<5 Iron",
   ">4 Diamonds",
